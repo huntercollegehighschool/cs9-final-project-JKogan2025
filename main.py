@@ -9,7 +9,7 @@ from time import sleep
 
 print("Welcome to the best hangman game in the world!")
 sleep(1.5)
-print("The rules are simple: the number of letters in the generated word will be represented on the screen as dashes, and you will have to guess each letter to win! If at any time you want to guess the word in it's entirety you may do so, but you may only have one guess. If that guess is wrong, you lose. Beware, if you make six letter mistakes and the hangman picture is finished, you lose.")
+print("The rules are simple: the number of letters in the generated word will be represented on the screen as dashes, and you will have to guess each letter to win! If at any time you want to guess the word in it's entirety you may do so, but you may only have one guess. If that guess is wrong, you lose. Beware, if you make six letter mistakes, you lose.")
 sleep(1.5)
 print("Without further ado, good luck!")
 
@@ -53,8 +53,16 @@ def incorrect(letter):
 
 def guesser(letter):
   letter = input("Type your next letter guess here: ")
+  joinedspaces_list = spaces_list.join
   if letter in spaces_list:
     guesser(letter)
+  elif letter == joinedspaces_list:
+    print("Woah, you guessed the full word, and without guessing each letter! The Force must be strong with this one. I must tell my master...")
+    import os
+    import sys
+    os.system("clear")
+    print("Hangman program has been terminated. Instructions to follow.")
+    sys.exit()
   else:
     mistakesleft -= 1
     incorrect(letter)
