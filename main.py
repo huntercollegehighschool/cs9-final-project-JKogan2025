@@ -32,9 +32,11 @@ def correct(letter):
   print("Spaces left in word:")
   for i in range(0, len(spaces_list)):
     if spaces_list[i] == letter:
-      print(letter, "")
-    else:
-      print("_ ")
+      print(letter, "", sep = "")
+    elif spaces_list[i] != letter:
+      print("_ ", sep = "")
+    elif i == len(spaces_list):
+      print("_")
   while letter in spaces_list:
     spaces_list.remove(letter)
 
