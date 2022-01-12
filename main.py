@@ -6,6 +6,7 @@ Name of Project: Python 1 (Hangman)
 #Write the main part of your program here. Use of the other pages is optional.
 
 from time import sleep
+import page1
 
 print("Welcome to the best hangman game in the world!")
 sleep(1.5)
@@ -39,21 +40,9 @@ def correct(letter):
 
 incorrect_list = []
 
-def incorrect(letter):
-  print("Sorry, that letter isn't in the word. You have", mistakesleft, "mistakes remaining. The letters you've guessed incorrectly are:", incorrect_list)
-  print("Spaces left in word:")
-  for i in range(1, 2):
-    print("_ " * len(spaces_list))
-  if mistakesleft == 0:
-    print("You've reached the maximum number of tolerable mistakes. Every normal person now despises you. Goodbye!")
-    import os
-    import sys
-    os.system("clear")
-    sys.exit()
-
 def guesser(letter):
   letter = input("Type your next letter guess here: ")
-  joinedspaces_list = spaces_list.join
+  joinedspaces_list = ''.join(spaces_list)
   if letter in spaces_list:
     guesser(letter)
   elif letter == joinedspaces_list:
@@ -65,7 +54,7 @@ def guesser(letter):
     sys.exit()
   else:
     mistakesleft -= 1
-    incorrect(letter)
+    page1.incorrect(letter)
     incorrect_list.append(letter) 
 
 l1 = input("Type your first letter guess here: ")
@@ -73,7 +62,7 @@ if l1 in spaces_list:
   guesser(l1)
 else:
   mistakesleft -= 1
-  incorrect(l1)
+  page1.incorrect(l1)
   incorrect_list.append(l1)
 
 while mistakesleft != 0 and len(spaces_list) != 0:
