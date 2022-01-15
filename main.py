@@ -44,9 +44,8 @@ def incorrect(letter):
 def correct(letter):
   while letter in spaces_list:
     indicestoreplace = []
-    index = spaces_list.index(letter)
     indicestoreplace.append(index)
-    spaces_list.pop(index)
+    spaces_list.remove(letter)
   #letter_index = [z for z, x in enumerate(spaces_list) if x == letter]
   print("That's correct!")
   print("Spaces left in word:")
@@ -80,7 +79,13 @@ while mistakesleft != 0 and ''.join(originaldashes_list) != joinedspaces_list:
     sys.exit()
 
 if ''.join(originaldashes_list) == joinedspaces_list:
-  print("Great job! You guessed the word! If you would like to play again, simply re-run the program.")
+  x = input("Great job! You guessed the word! Enter 'yes' or 'no' to indicate whether you'd like to play again: ")
+  if x == "yes" or "Yes":
+    
+  else:
+    print("That's alright. Come back any time!")
+    sleep(2)
+    sys.exit()
 
 ''''
 joinedoriginaldashes_list = ''.join(originaldashes_list)
