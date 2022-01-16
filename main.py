@@ -1,102 +1,119 @@
 """
 Name(s): Joseph Kogan
 Name of Project: Python 1 (Hangman)
+Note: The rules that print at the beginning are formatted so that they print correctly on a full console screen, so it is recommended to play the game in fullscreen.
 """
 
 #Write the main part of your program here. Use of the other pages is optional.
 
 from time import sleep
-from page1 import mistakesleft
+import wordlistandmistakes
 import os
 import sys
 
-print("Welcome to the best hangman game in the world!")
-sleep(1.5)
-print("The rules are simple: the number of letters in the generated word will be represented on the screen as dashes, and you will have to guess each letter to win! If at any time you want to guess the word in its entirety you may do so, but you may only have one guess. If that guess is wrong, you lose. Beware, if you make six letter mistakes, you lose.")
-sleep(1.5)
-print("Without further ado, good luck!")
+z = 10
+y = 10
 
-list_a = ["conspicuous", "alligator", "connoisseur", "detrimental", "vivacious", "presidential", "collection", "lackadaisical", "fuchsia", "thumbscrew", "lymph", "marquis"]
+while z == y:
+  sleep(1.5)
+  print("Welcome to the best hangman game in the world!")
+  sleep(1.5)
+  print("The rules are simple: the number of letters in the generated word will be represented on the screen as dashes, and you will have to guess each letter to win! If \nat any time you want to guess the word in its entirety you may do so, but you may only have one guess. If that guess is wrong, you lose. Beware, if you make six \nletter mistakes, you lose.")
+  sleep(1.5)
+  print("Without further ado, good luck!")
 
-sleep(2.5)
-x = int(input("Choose an integer from 1-12 to generate a word for hangman: "))
-x -= 1
-spaces_list = list(list_a[x])
-joinedspaces_list = ''.join(spaces_list)
-incorrect_list = []
+  sleep(2.5)
+  word = int(input("Choose an integer from 1-15 to generate a word for hangman: "))
+  word -= 1
 
-print("Spaces left in word:")
-originaldashes_list = ["_ "]
-for i in range(1, len(spaces_list)):
-  originaldashes_list.append("_ ")
-print(*originaldashes_list)
+  spaces_list = list(wordlistandmistakes.list_a[word])
+  joinedspaces_list = ''.join(spaces_list)
+  incorrect_list = []
+  guessed_letters = []
 
-def incorrect(letter):
-  print("Sorry, that letter isn't in the word. You have", mistakesleft, "mistakes remaining. The letters you've guessed incorrectly are:", *incorrect_list)
-  print("Spaces left in word:")
+  print("Spaces left in the word:")
+  originaldashes_list = ["_ "]
+  for i in range(1, len(spaces_list)):
+    originaldashes_list.append("_ ")
   print(*originaldashes_list)
-  if mistakesleft == 0:
-    print("You've reached the maximum number of tolerable mistakes. Every normal person now despises you. Goodbye!")
-    os.system("clear")
-    sys.exit()
-  letter = None
 
-def correct(letter):
-  while letter in spaces_list:
-    indicestoreplace = []
-    indicestoreplace.append(index)
-    spaces_list.remove(letter)
-  #letter_index = [z for z, x in enumerate(spaces_list) if x == letter]
-  print("That's correct!")
-  print("Spaces left in word:")
-  #originaldashes_list = [letter if letter == letter_index else letter for letter in originaldashes_list]
-  print(*originaldashes_list)
-  letter = None
+  def incorrect(letter):
+    guessed_letters.append(letter)
+    if wordlistandmistakes.mistakesleft > 1:
+      print("Sorry, that letter isn't in the word. You have", wordlistandmistakes.mistakesleft, "mistakes remaining. The letters you've guessed incorrectly are:", *incorrect_list)
+      sleep(1)
+      print("Spaces left in the word:")
+      print(*originaldashes_list)
+      letter = None
+    elif wordlistandmistakes.mistakesleft == 0:
+      print("You've reached the maximum number of allowed mistakes. Every normal person now despises you. Goodbye!")
+      sleep(4)
+      os.system("clear")
+      sys.exit()
+    else:
+      print("Sorry, that letter isn't in the word. You have 1 mistake remaining. The letters you've guessed incorrectly are:", *incorrect_list)
+      sleep(1)
+      print("Spaces left in the word:")
+      print(*originaldashes_list)
+      letter = None
 
-while mistakesleft != 0 and ''.join(originaldashes_list) != joinedspaces_list:
-  letter = input("Type your letter guess here: ")
-  if letter in spaces_list:
-    correct(letter)
-  elif len(letter) == 1 and letter not in spaces_list and len(incorrect_list) == 0:
-    incorrect_list.append(letter)
-    mistakesleft -= 1
-    incorrect(letter)
-  elif len(letter) == 1 and letter not in spaces_list and len(incorrect_list) > 0:
-    incorrect_listletters = [",", letter]
-    incorrect_list.extend(incorrect_listletters)
-    incorrect_listletters = None
-    mistakesleft -= 1
-    incorrect(letter)
-  elif len(letter) > 1 and letter != joinedspaces_list:
-    print("That guess is incorrect, and the hangman program shall now be terminated.")
-    sleep(2)
-    sys.exit()
-  elif letter == joinedspaces_list:
-    print("Woah, you guessed the full word, and without guessing each letter! The Force is strong with this one. I must tell my master...")
-    sleep(4)
-    os.system("clear")
-    print("Hangman program has been terminated. Instructions to follow.")
-    sys.exit()
+  def correct(letter):
+    guessed_letters.append(letter)
+    print("That's correct!")
+    sleep(0.5)
+    print("Spaces left in the word:")
+    index = spaces_list.index(letter)
+    originaldashes_list[index] = letter
+    #originaldashes_list[index + 1] = " "
+    print(*originaldashes_list)
+    letter = None
 
-if ''.join(originaldashes_list) == joinedspaces_list:
-  x = input("Great job! You guessed the word! Enter 'yes' or 'no' to indicate whether you'd like to play again: ")
-  if x == "yes" or "Yes":
-    
-  else:
-    print("That's alright. Come back any time!")
-    sleep(2)
-    sys.exit()
+  def alreadyguessed(letter):
+    print("You've already guessed that letter, sorry.")
+    sleep(0.5)
+    print("Spaces left in the word:")
+    print(*originaldashes_list)
+    letter = None
 
-''''
-joinedoriginaldashes_list = ''.join(originaldashes_list)
-while mistakesleft != 0 or joinedspaces_list != joinedoriginaldashes_list:
-  '''
+  while wordlistandmistakes.mistakesleft != 0 and ''.join(originaldashes_list) != joinedspaces_list:
+    letter = input("Type your letter guess or full word guess here: ")
+    if letter in guessed_letters:
+      alreadyguessed(letter)
+    elif letter in spaces_list:
+      correct(letter)
+    elif len(letter) == 1 and letter not in spaces_list and len(incorrect_list) == 0:
+      incorrect_list.append(letter)
+      wordlistandmistakes.mistakesleft -= 1
+      incorrect(letter)
+    elif len(letter) == 1 and letter not in spaces_list and len(incorrect_list) > 0:
+      incorrect_listletters = [",", letter]
+      incorrect_list.extend(incorrect_listletters)
+      incorrect_listletters = None
+      wordlistandmistakes.mistakesleft -= 1
+      incorrect(letter)
+    elif len(letter) > 1 and letter != joinedspaces_list:
+      print("That guess is incorrect, and the hangman program shall now be terminated.")
+      sleep(2)
+      sys.exit()
+    elif letter == joinedspaces_list:
+      print("Woah, you guessed the full word, and without guessing each letter! The Force is strong with this one. I must tell my master...")
+      sleep(4)
+      os.system("clear")
+      print("Hangman program has been terminated. Instructions to follow.")
+      sys.exit()
+      
 
-''''
-from correct import dash_list
-from incorrect import mistakesleft
-'''
 
+  if ''.join(originaldashes_list) == joinedspaces_list:
+    x = input("Great job! You guessed the word! Enter 'yes' or 'no' to indicate whether you'd like to play again: ")
+    if x == "yes" or x == "Yes":
+      print("Okay! Let's restart the program...")
+      sleep(2)
+      os.system("clear")
+    else:
+      print("That's alright. Come back any time!")
+      sleep(2)
+      z += 1
 
 #import page2  # uncomment if you're using page2
 #import page3  # uncomment if you're using page3
