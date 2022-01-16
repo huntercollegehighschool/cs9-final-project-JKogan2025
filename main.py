@@ -74,7 +74,6 @@ while z == y:
     print("Spaces left in the word:")
     index = spaces_list.index(letter)
     originaldashes_list[index] = letter + " "
-    #originaldashes_list[index + 1] = " "
     print(*originaldashes_list)
     letter = None
 
