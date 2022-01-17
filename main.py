@@ -117,6 +117,14 @@ while z == y:
     x = input("Great job! You guessed the word! Enter 'yes' or 'no' to indicate whether you'd like to play again: ")
     if x == "yes" or x == "Yes":
       print("Okay! Let's restart the program...")
+      spaces_list = None
+      incorrect_list = None
+      guessed_letters = None
+      originaldashes_list = None
+      mistakesleft = 6
+      finalspaces_list = None
+      incorrect_listletters = None
+      letters = None
       sleep(2)
       os.system("clear")
     else:
