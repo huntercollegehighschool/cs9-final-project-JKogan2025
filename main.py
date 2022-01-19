@@ -1,7 +1,7 @@
 """
 Name(s): Joseph Kogan
 Name of Project: Python 1 (Hangman)
-Note: The rules that print at the beginning are formatted so that they print correctly on a full console screen, so it is recommended to play the game in fullscreen.
+NOTE: The rules that print at the beginning are formatted so that they print correctly on a full console screen, so it is recommended to play the game in fullscreen.
 """
 
 #Write the main part of your program here. Use of the other pages is optional.
